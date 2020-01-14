@@ -26,9 +26,8 @@ SCORE_DIST = 10
 SCORE_KILL = 200
 SCORE_COIN = 100
  
-#for x in range(1,20):
-#	print(Back.BLUE) 
-#print(Style.RESET_ALL)
+# coin_collect=0
+# lives=3
 
 colors = {
 	'Blue': '\x1b[0;34m',

@@ -1,14 +1,18 @@
 from obstacle import *
 from person import *
 from mypattern import *
-scene = background()
+from globalfunc import *
+
 def make_back(scene):
 	y=0
 	x=0
-	#v_pat=pattern(2,2)
-	#v_pat.Set_pos(2,2,scene)
-	while y<MAP_SIZE-50:
+	poss=2
+	while y<MAP_SIZE-50 and poss<MAP_SIZE-50:
 	#for tt in range(10):
+		# v_pat=pattern(2,poss)
+		# v_pat.design()
+		# v_pat.Set_pos(2,poss,scene)
+		poss+=60		
 		type=random.choice([0,1,2,3])
 		x=random.randrange(4,19)
 		y+=random.randrange(10,30)
@@ -28,12 +32,4 @@ def make_back(scene):
 			Coin=coin(x,y)
 			Coin.Set_pos(x,y,scene)
 			y+=20
-
-Hero = Hero()
-Hero.Set_pos(32,2,scene)
-make_back(scene)
-back=scene.displayScene()
-print(back)
-	
-
 	

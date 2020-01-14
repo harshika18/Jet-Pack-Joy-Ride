@@ -1,5 +1,7 @@
 from back import *
 import random
+from globalfunc import *
+
 
 class obstacle:
 	def __init__(self):

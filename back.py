@@ -1,5 +1,8 @@
 from config import *
 import numpy as np
+from mypattern import *
+from globalfunc import *
+
 
 class background:
 	def __init__(self):
@@ -16,7 +19,7 @@ class background:
 			self.screen.append([])
 			for y in range(0, self.map_size):
 				self.screen[x].append(' ')
-	def ground(self):
+	#def ground(self):
 		for x in range(36, self.length):
 			for y in range(0, self.map_size):
 				self.screen[x][y] = colors['Brown'] + 'I' + RESET 
@@ -26,10 +29,18 @@ class background:
 	def update_matrix(self, up_mat):
 		self.screen = up_mat
 	def displayScene(self):
+		poss=2
+		while poss<MAP_SIZE-50:
+	#for tt in range(10):
+			# v_pat=pattern(2,poss)
+			# v_pat.design()
+			# v_pat.Set_pos(2,poss,scene)
+			design(2,poss,self)
+			poss+=60		
 		sceneprint = ""
 		original=self.start + self.width
-		if(self.screen[0][0]==' '):
-			self.screen[0][0]='\x1b[0;45m'
+		#if(self.screen[0][0]==' '):
+		#	self.screen[0][0]='\x1b[0;45m'
 		if self.start >= self.map_size - self.width:
 			self.start = self.map_size - self.width
 		for i in range(0, self.length):
@@ -39,15 +50,3 @@ class background:
 				#sceneprint += colors['Cyan'] + "Press Q to exit\n" 
 		return sceneprint
 
-def Fit_in(obj,x,y,back):
-	Myobj=obj.return_matr()
-	backmatrix=back.return_matr()
-	back.ground()
-	'''for i in range(obj.x,obj.x+obj.length):
-		for j in range(obj.y,obj.y+obj.width):
-			backmatrix[i][j]=' '''
-	for i in range(x,x+obj.length):
-		for j in range(y,y+obj.width):
-			backmatrix[i][j]=Myobj[i-x][j-y]
-
-	back.update_matrix(backmatrix)
