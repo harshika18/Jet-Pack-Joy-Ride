@@ -2,6 +2,7 @@ from config import *
 import numpy as np
 from mypattern import *
 from globalfunc import *
+import threading, time
 
 
 class background:
@@ -20,6 +21,8 @@ class background:
 			for y in range(0, self.map_size):
 				self.screen[x].append(' ')
 	#def ground(self):
+		for i in range(0,self.map_size):
+			self.screen[2][i] = colors['Blue'] + '-' + RESET
 		for x in range(36, self.length):
 			for y in range(0, self.map_size):
 				self.screen[x][y] = colors['Brown'] + 'I' + RESET 
@@ -35,7 +38,7 @@ class background:
 			# v_pat=pattern(2,poss)
 			# v_pat.design()
 			# v_pat.Set_pos(2,poss,scene)
-			design(2,poss,self)
+			design(3,poss,self)
 			poss+=60		
 		sceneprint = ""
 		original=self.start + self.width
@@ -50,3 +53,6 @@ class background:
 				#sceneprint += colors['Cyan'] + "Press Q to exit\n" 
 		return sceneprint
 
+def timer_plus(scene):
+	scene.start+=1
+	threading.Timer(1,timer_plus).start()

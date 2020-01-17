@@ -7,11 +7,24 @@ def make_back(scene):
 	y=0
 	x=0
 	poss=2
+	j=20
+	while j<MAP_SIZE-50:	
+		Enemy=enemy(34,j)
+		Enemy.Set_pos(34,j,scene)
+		j+=70
+	j=23
+	while j<MAP_SIZE-50:
+		Enemy=enemy(34,j)
+		Enemy.Set_pos(34,j,scene)
+		j+=70
+		#Enemy.Set_pos(34,j,scene)
+		#j+=30
 	while y<MAP_SIZE-50 and poss<MAP_SIZE-50:
 	#for tt in range(10):
 		# v_pat=pattern(2,poss)
 		# v_pat.design()
 		# v_pat.Set_pos(2,poss,scene)
+		
 		poss+=60		
 		type=random.choice([0,1,2,3])
 		x=random.randrange(4,19)

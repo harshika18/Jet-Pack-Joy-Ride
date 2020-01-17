@@ -20,7 +20,29 @@ class Get:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
-def input_to(getch):
+# def input_to(getch):
+#     """Taking input from user."""
+#     text = getch()
+#     return text
+
+class AlarmException(Exception):
+    """Handling alarm exception."""
+    pass
+
+
+def alarmHandler(signum, frame):
+    """Handling timeouts."""
+    raise AlarmException
+
+
+def input_to(getch, timeout=1):
     """Taking input from user."""
-    text = getch()
-    return text
+    signal.signal(signal.SIGALRM, alarmHandler)
+    signal.setitimer(signal.ITIMER_REAL, timeout)
+    try:
+        text = getch()
+        signal.alarm(0)
+        return text
+    except AlarmException:
+        signal.signal(signal.SIGALRM, signal.SIG_IGN)
+        return None
