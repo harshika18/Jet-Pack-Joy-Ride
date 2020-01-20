@@ -60,7 +60,7 @@ def design(x,y,back):
 			#print(i,j,i-x,j-y)
 			if backmatrix[i][j]==' ':
 				backmatrix[i][j]=matrix[i-x][j-y]
-
+	
 	back.update_matrix(backmatrix)
 
 	# def print_design(self):

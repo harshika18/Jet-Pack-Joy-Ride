@@ -22,19 +22,32 @@ def Fit_in(obj,x,y,back):
 	back.update_matrix(backmatrix)
 
 def Fit_in_shoot(obj,x,y,back):
-	Myobj='>'
+	Myobj=obj.gun
+	k=45
 	backmatrix=back.return_matr()
-	for i in range(y,y+50,5):
-		backmatrix[x][i]=Myobj
+	if Myobj=='O':
+		k=25
+	for i in range(y,y+k,5):
+	#for i in range(y,y+len(Myobj)):
+		if backmatrix[x][i]==' ':
+			backmatrix[x][i]=Myobj
 	back.update_matrix(backmatrix)
 
 def remove_gun(obj,x,y,back):
-	Myobj='>'
 	backmatrix=back.return_matr()
 	for j in range(0,36):
 		for i in range(y,MAP_SIZE-1):
 		#print(backmatrix[x][i])
 			if backmatrix[j][i]=='>':
+				backmatrix[j][i]=' '
+	back.update_matrix(backmatrix)
+
+def remove_boss_gun(obj,x,y,back):
+	backmatrix=back.return_matr()
+	for j in range(0,36):
+		for i in range(350,455):
+			#print(backmatrix[x][i])
+			if backmatrix[j][i]=='O':
 				backmatrix[j][i]=' '
 	back.update_matrix(backmatrix)
 
@@ -67,6 +80,17 @@ def check_clash(obj,x,y,back):
 					for d in range(j,j+5):
 						backmatrix[c][d]=' '
 
+	#check power
+	for i in range (x,x+obj.length):
+		for j in range(y,y+obj.width):
+			v= Style.BRIGHT + colors['Purple'] + 'S' + RESET
+			h=Style.BRIGHT + colors['Purple'] + '#' + RESET
+			if backmatrix[i][j]==h or backmatrix[i][j]==v:
+				obj.speed+=1
+				break
+
+	#check magnet
+
 	
 def obstacle_detect(obj,x,y,back):
 	backmatrix=back.return_matr()
@@ -86,3 +110,11 @@ def obstacle_detect(obj,x,y,back):
 				for j in range(i,i+5):
 					backmatrix[c][j]=' '
 			break
+
+def check_hero(x,x1,y,obj):
+	if obj.x+4>=x and obj.x<=x1 and obj.y>=y:
+		obj.lives-=1
+
+def dragon_check(obj,x):
+	if x>=obj.x and x<=obj.x+14:
+		obj.lives-=1

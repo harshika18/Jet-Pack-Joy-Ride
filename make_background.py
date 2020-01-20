@@ -45,4 +45,22 @@ def make_back(scene):
 			Coin=coin(x,y)
 			Coin.Set_pos(x,y,scene)
 			y+=20
-	
+	y=random.randrange(50,100)
+	magnet=up_magnet(3,y)
+	magnet.Set_pos(3,y,scene)
+	y=random.randrange(300,400)
+	magnet=up_magnet(3,y)
+	magnet.Set_pos(3,y,scene)
+
+	y=random.randrange(170,220)
+	magnet=down_magnet(33,y)
+	magnet.Set_pos(33,y,scene)
+
+	y=random.randrange(110,160)
+	power=power_up(3,y)
+	power.Set_pos(3,y,scene)
+
+	y=random.randrange(230,280)
+	power=power_up(32,y)
+	power.Set_pos(32,y,scene)
+

@@ -185,3 +185,63 @@ class coin(obstacle):
 		for i in range(random.randrange(1,7)):
 			for j in range(random.randrange(4,17)):
 				self.matrix[i][j]=v
+
+class up_magnet(obstacle):
+	def __init__(self,x,y):
+		obstacle.__init__(self)
+		self.length=3
+		self.width=8
+		self.x=x
+		self.y=y
+		v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
+		h=Style.BRIGHT + colors['Cyan'] + '|' + RESET
+				
+		self.matrix=[[' ',' ',v,v,v,v,' ',' '],
+							[h,h,' ',' ',' ',' ',h,h],
+							[h,h,' ',' ',' ',' ',h,h]]
+
+
+
+'''  ____
+	|    |       ====
+	|    |     ||    ||
+	           ||    ||
+'''
+
+class down_magnet(obstacle):
+	def __init__(self,x,y):
+		obstacle.__init__(self)
+		self.length=3
+		self.width=8
+		self.x=x
+		self.y=y
+		v= Style.BRIGHT + colors['Cyan'] + '-' + RESET
+		h=Style.BRIGHT + colors['Cyan'] + '|' + RESET
+				
+		self.matrix=[[h,h,' ',' ',' ',' ',h,h],
+							[h,h,' ',' ',' ',' ',h,h],
+							[' ',' ',v,v,v,v,' ',' ']]
+
+class power_up(obstacle):
+	def __init__(self,x,y):
+		obstacle.__init__(self)
+		self.length=4
+		self.width=3
+		self.x=x
+		self.y=y
+		v= Style.BRIGHT + colors['Purple'] + 'S' + RESET
+		h=Style.BRIGHT + colors['Purple'] + '#' + RESET
+				
+		self.matrix=[[' ',v,' ',],
+					[h,h,h],
+					[h,h,h],
+					[h,h,h]]
+
+
+'''
+         S
+        ###
+        ###
+        ###
+
+      '''
