@@ -34,7 +34,7 @@ def alarmHandler(signum, frame):
     """Handling timeouts."""
     raise AlarmException
 
-
+#0.4
 def input_to(getch, timeout=0.4):
     """Taking input from user."""
     signal.signal(signal.SIGALRM, alarmHandler)

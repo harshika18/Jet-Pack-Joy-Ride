@@ -215,7 +215,7 @@ class down_magnet(obstacle):
 		self.width=8
 		self.x=x
 		self.y=y
-		v= Style.BRIGHT + colors['Cyan'] + '-' + RESET
+		v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
 		h=Style.BRIGHT + colors['Cyan'] + '|' + RESET
 				
 		self.matrix=[[h,h,' ',' ',' ',' ',h,h],

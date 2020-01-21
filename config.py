@@ -13,8 +13,6 @@ HERO_INIT_Y = 1
 HERO_LENGTH = 4
 HERO_WIDTH = 3
 
-class LIVES:
-	lives=3
 
 #w=fly, a=left, d=right, l=fire, space=shield
 INPUT = ['w', 'a', 'd', 'l', ' ']

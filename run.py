@@ -15,30 +15,21 @@ Dragon=dragon(22,452)
 Dragon.Set_pos(22,452,scene)
 getinp = Get()
 back=scene.displayScene()
-Lives=[[] for i in range(0,10)]
-# Lives[0]=("LIVES:")
-# for i in range(5,5+len(Lives)):
-# 	back[0][i]=Lives[0][i-5]
-print("lives:%d coin:%d dragon lives:%d" %(Hero.lives,Hero.coin_collect,Dragon.lives))
+temp_scene=scene.displayScene()
 print(back)
 original_time=time.time()
-
-# ticker = threading.Event()
-# while not ticker.wait(1):
-# 	timer_plus(scene)
-#timer_plus(scene)
 is_shoot=0
 shoot_pos_x=0
 shoot_pos_y=0
 
+#0.2
 while True:
-	print("lives:%d coin:%d dragon lives:%d" %(Hero.lives,Hero.coin_collect,Dragon.lives))
-
-	#timer_plus()
+	#print(is_shield)
 	recent=time.time()
+	#Hero.magnet(scene)
 	if(recent - original_time >=0.2) and scene.start<360:
 		#print(recent - original_time)
-		scene.start+=1
+		scene.start+=2
 		original_time=time.time()
 	if scene.start>=360:
 		break
@@ -52,48 +43,69 @@ while True:
 	input=input_to(getinp)
 	os.system('clear')
 	back=scene.displayScene()
-	# #Lives=list("LIVES:")
-	# for i in range(5,5+len(Lives)):
-	# 	back[0][i]=Lives[i-5]
-	#make_back(scene)
-	# for i in range(scene.start+5,scene.start+5+len(Lives)):
-	# 	back[0][i]=Lives[i-5]
+	temp_scene=scene.displayScene()
+	put_info(scene,Hero,Dragon)
 	print(back)
 	if input is not None:
 		#print(input)
 		if input=='d':
+			if(Hero.y>100 and Hero.y<130):
+				Hero.speed=1
+			elif Hero.y>70 and Hero.y<100:
+				Hero.speed=3
+			elif Hero.is_power==0:
+				Hero.speed=2
+			elif Hero.is_power==1:
+				Hero.speed=3
 			ch=check_clash(Hero,Hero.x,Hero.y+2,scene)
+			if (ch==1 or ch==2) and Hero.is_shield==1:
+				obstacle_detect(Hero,Hero.x,Hero.y,scene)
+				Hero.is_shield=0
+				Hero.remove_shield()
 			Hero.right_move(scene)
-			print("lives:%d coin:%d" %(Hero.lives,Hero.coin_collect))
 		elif input=='a':
+			if(Hero.y>70 and Hero.y<=100):
+				Hero.speed=1
+			elif Hero.y>100 and Hero.y<130:
+				Hero.speed=3
+			elif Hero.is_power==0:
+				Hero.speed=2
+			elif Hero.is_power==1:
+				Hero.speed=3
 			ch=check_clash(Hero,Hero.x,Hero.y-2,scene)
+			if ch==1 or ch==2 and Hero.is_shield==1:
+				obstacle_detect(Hero,Hero.x,Hero.y,scene)
+				Hero.is_shield=0
+				Hero.remove_shield()
 			Hero.left_move(scene)
-			print("lives:%d coin:%d" %(Hero.lives,Hero.coin_collect))
 		elif input=='w':
 			ch=check_clash(Hero,Hero.x-2,Hero.y,scene)
+			if ch==1 or ch==2 and Hero.is_shield==1:
+				obstacle_detect(Hero,Hero.x,Hero.y,scene)
+				Hero.is_shield=0
+				Hero.remove_shield()
 			Hero.up_move(scene)
-			print("lives:%d coin:%d" %(Hero.lives,Hero.coin_collect))
 		elif input==' ':
 			is_shoot=1
 			shoot_pos_y=Hero.y
 			shoot_pos_x=Hero.x+2
 			obstacle_detect(Hero,Hero.x+2,Hero.y,scene)
 			Hero.shoot(scene)
-			#Hero.boss_shoot(Hero.x+2,Hero.y+15, scene)
-			#Dragon.boss_shoot(scene)
-
-
+		elif input=='s':
+			Hero.shield()
+			Hero.is_shield=1
 		if input == 'q':
 			os.system('clear')
 			sys.exit()
-		# elif Hero.x!=32:
-		# 	#print("Enter1")
-		# 	Hero.gravity(scene)
-
+		
 	elif Hero.x<32:
 		#print("Enter2")
 		Hero.gravity(scene)
 		ch=check_clash(Hero,Hero.x+2,Hero.y,scene)
+		if ch==1 or ch==2 and Hero.is_shield==1:
+			obstacle_detect(Hero,Hero.x,Hero.y,scene)
+			Hero.is_shield=0
+			Hero.remove_shield()
 
 is_shoot_dragon=1
 original_time=time.time()
@@ -107,8 +119,6 @@ while True:
 		if Hero.x+4>=Dragon.x and Hero.x<=Dragon.x+11 and Hero.y<=426:
 			Fit_in_shoot(Dragon,shoot_pos_x,Dragon.y-51,scene)
 			Fit_in_shoot(Dragon,shoot_pos_x+2,Dragon.y-51,scene)
-			#Fit_in_shoot(Dragon,Dragon.x+9,Dragon.y-51,scene)
-			#check_hero(Dragon.x+3,Dragon.x+10,300,Hero)
 			check_hero(shoot_pos_x,shoot_pos_x+2,300,Hero)
 			is_shoot_dragon=2
 	elif is_shoot_dragon==2:
@@ -137,24 +147,23 @@ while True:
 	os.system('clear')
 	#make_back(scene)
 	back=scene.displayScene()
+	temp_scene=scene.displayScene()
+	put_info(scene,Hero,Dragon)
 	print(back)
 	if input is not None:
 		if input=='d':
 			if Hero.y<440:
 				ch=check_clash(Hero,Hero.x,Hero.y+2,scene)
 				Hero.right_move(scene)
-				print("lives:%d coin:%d dragon lives:%d" %(Hero.lives,Hero.coin_collect,Dragon.lives))
 		elif input=='a':
 			if Hero.y>360:
 				ch=check_clash(Hero,Hero.x,Hero.y-2,scene)
 				Hero.left_move(scene)
-				print("lives:%d coin:%d dragon lives:%d" %(Hero.lives,Hero.coin_collect,Dragon.lives))
 		elif input=='w':
 			if Hero.x+2<=Dragon.x:
 				Dragon.up_move(scene)
 			ch=check_clash(Hero,Hero.x-2,Hero.y,scene)
 			Hero.up_move(scene)
-			print("lives:%d coin:%d dragon lives:%d" %(Hero.lives,Hero.coin_collect,Dragon.lives))
 		elif input==' ':
 			is_shoot=1
 			shoot_pos_y=Hero.y
@@ -166,10 +175,7 @@ while True:
 		if input == 'q':
 			os.system('clear')
 			sys.exit()
-		# elif Hero.x!=32:
-		# 	#print("Enter1")
-		# 	Hero.gravity(scene)
-
+		
 	elif Hero.x<32:
 		#print("Enter2")
 		Hero.gravity(scene)

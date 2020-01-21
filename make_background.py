@@ -28,7 +28,7 @@ def make_back(scene):
 		poss+=60		
 		type=random.choice([0,1,2,3])
 		x=random.randrange(4,19)
-		y+=random.randrange(10,30)
+		y+=random.randrange(20,40)
 		if type==0:
 			v_beam=vertical_beam(x,y)
 			v_beam.Set_pos(x,y,scene)
@@ -45,16 +45,13 @@ def make_back(scene):
 			Coin=coin(x,y)
 			Coin.Set_pos(x,y,scene)
 			y+=20
-	y=random.randrange(50,100)
-	magnet=up_magnet(3,y)
-	magnet.Set_pos(3,y,scene)
-	y=random.randrange(300,400)
-	magnet=up_magnet(3,y)
-	magnet.Set_pos(3,y,scene)
-
-	y=random.randrange(170,220)
-	magnet=down_magnet(33,y)
-	magnet.Set_pos(33,y,scene)
+	#y=random.randrange(50,100)
+	magnet=up_magnet(3,100)
+	magnet.Set_pos(3,100,scene)
+	
+	#y=random.randrange(170,220)
+	magnet=down_magnet(33,200)
+	magnet.Set_pos(33,200,scene)
 
 	y=random.randrange(110,160)
 	power=power_up(3,y)

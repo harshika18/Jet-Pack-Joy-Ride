@@ -50,12 +50,15 @@ class Hero(person):
 		self.enemy_killed=0
 		self.obs_killed=0
 		self.speed=2
+		self.is_shield=0
+		self.is_power=0
 		#9*4 matrix
 		#print("enter")
-		self.matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
-					[ ' ', '/','/','|',' ',' ', '|','_','_'],
-					['/','/',' ', '|','_','_','|',' ',' '],
-					[' ',' ',' ','/',' ',' ','\\',' ',' ']]
+		if self.is_shield==0:
+			self.matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
+							[ ' ', '/','/','|',' ',' ', '|','_','_'],
+							['/','/',' ', '|','_','_','|',' ',' '],
+							[' ',' ',' ','/',' ',' ','\\',' ',' ']]
 
 	def shoot(self,scene):
 		self.fire_len=49
@@ -73,6 +76,29 @@ class Hero(person):
 	  // |__|
 	     /  \
 	'''
+	def shield(self):
+		q= Style.BRIGHT + colors['Green'] + '(' + RESET
+		w= Style.BRIGHT + colors['Green'] + ')' + RESET
+		e= Style.BRIGHT + colors['Green'] + '|' + RESET
+		r= Style.BRIGHT + colors['Green'] + '/' + RESET
+		t= Style.BRIGHT + colors['Green'] + '\\' + RESET
+		y= Style.BRIGHT + colors['Green'] + '_' + RESET
+		self.matrix=[[' ',' ',' ',' ',q,w,' ',' ',' '],
+					[ ' ', r,r,e,' ',' ', e,y,y],
+					[r,r,' ', e,y,y,e,' ',' '],
+					[' ',' ',' ',r,' ',' ',t,' ',' ']]
+
+	def remove_shield(self):
+		self.matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
+					[ ' ', '/','/','|',' ',' ', '|','_','_'],
+					['/','/',' ', '|','_','_','|',' ',' '],
+					[' ',' ',' ','/',' ',' ','\\',' ',' ']]
+	def magnet(self,scene):
+		if(self.y>70 and self.y<130 and self.x<15):
+			if self.y<100:
+				self.right_move(scene)
+			else:
+				self.left_move(scene)
 
 
 class enemy(person):
