@@ -7,9 +7,9 @@ def put_info(back,hero,drag):
 	for i in range(0,MAP_SIZE-1):
 		backmatrix[1][i]=' '
 	Lives="LIVES:"
-	for i in range(back.start,back.start+len(Lives)+1):
-		backmatrix[1][i]=Lives[i-back.start-1]
-	backmatrix[1][back.start+len(Lives)+1]=hero.lives
+	for i in range(back.start+2,back.start+2+len(Lives)+1):
+		backmatrix[1][i]=Lives[i-back.start-3]
+	backmatrix[1][back.start+len(Lives)+3]=hero.lives
 	Lives="COIN COLLECTED:"
 	for i in range(back.start+30,back.start+30+len(Lives)):
 		#print(i,i-back.start-10)
@@ -68,7 +68,7 @@ def remove_gun(obj,x,y,back):
 def remove_boss_gun(obj,x,y,back):
 	backmatrix=back.return_matr()
 	for j in range(0,36):
-		for i in range(350,455):
+		for i in range(850,955):
 			#print(backmatrix[x][i])
 			if backmatrix[j][i]=='O':
 				backmatrix[j][i]=' '
@@ -115,6 +115,7 @@ def check_clash(obj,x,y,back):
 			if backmatrix[i][j]==h or backmatrix[i][j]==v:
 				obj.speed+=1
 				obj.is_power=1
+				obj.power_time=time.time()
 				break
 
 	#check magnet

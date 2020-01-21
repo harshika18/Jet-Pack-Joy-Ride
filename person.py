@@ -20,8 +20,10 @@ class person:
 	def up_move(self,scene):
 		if self.x-self.speed>2:
 			self.Set_pos(self.x-self.speed,self.y,scene)
-	def gravity(self,scene):
-		if(self.x<8):
+	def gravity(self,scene,t):
+		g=1
+		jump=round(g*t*t)
+		'''if(self.x<8):
 			jump=1
 		elif(self.x<17):
 			jump=2
@@ -30,7 +32,9 @@ class person:
 		elif(self.x+2<=32):
 			jump=2
 		else:
-			jump=1
+			jump=1'''
+		if self.x+jump>32:
+			jump=32-self.x
 		self.Set_pos(self.x+jump,self.y,scene)
 	def boss_shoot(self,x,y,scene):
 		self.gun='>'
@@ -52,6 +56,7 @@ class Hero(person):
 		self.speed=2
 		self.is_shield=0
 		self.is_power=0
+		self.power_time=0
 		#9*4 matrix
 		#print("enter")
 		if self.is_shield==0:

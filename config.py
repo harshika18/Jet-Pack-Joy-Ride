@@ -4,7 +4,7 @@ from colorama import Fore, Back, init, Style
 #MAP CONTRAIT
 SCREEN_LEN = 40
 SCREEN_WIDTH = 140
-MAP_SIZE = 500
+MAP_SIZE = 1000
 SCREEN_DELETE=70
 
 #HERO CONTRAINT
