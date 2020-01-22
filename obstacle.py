@@ -5,14 +5,14 @@ from globalfunc import *
 
 class obstacle:
 	def __init__(self):
-		self.matrix=[]
+		self._matrix=[]
 		for i in range(21):
-			self.matrix.append([])
+			self._matrix.append([])
 			for j in range(21):
 				#print(i)
-				self.matrix[i].append(' ')
+				self._matrix[i].append(' ')
 	def return_matr(self):
-		return self.matrix
+		return self._matrix
 	def Set_pos(self,x,y,background):
 		Fit_in(self,x,y,background)
 
@@ -28,14 +28,14 @@ class vertical_beam(obstacle):
 		#10*7 matrix
 		for i in range(2):
 			for j in range(6):				
-				self.matrix[i][j]=v
+				self._matrix[i][j]=v
 		for i in range(2,8):
 			for j in range(2,4):
-				self.matrix[i][j]=v
+				self._matrix[i][j]=v
 		for i in range(8,10):
 			for j in range(6):				
-				self.matrix[i][j]=v
-		'''self.matrix=[[' ','_' ,'_' ,'_' ,'_',' '],
+				self._matrix[i][j]=v
+		'''self._matrix=[[' ','_' ,'_' ,'_' ,'_',' '],
 					['|','_',' ',' ','_','|'],
 					[' ',' ','|','|',' ',' '],
 					[' ',' ','|','|',' ',' '],
@@ -72,17 +72,17 @@ class horizontal_beam(obstacle):
 		#s= Style.BRIGHT + colors['Red'] + ' ' + RESET
 		#4*19
 		for j in range(3):			
-			self.matrix[0][j]=v
+			self._matrix[0][j]=v
 		for j in range(16,19):			
-			self.matrix[0][j]=v
+			self._matrix[0][j]=v
 		for i in range(1,3):
 			for j in range(19):
-				self.matrix[i][j]=v
+				self._matrix[i][j]=v
 		for j in range(3):			
-			self.matrix[3][j]=v
+			self._matrix[3][j]=v
 		for j in range(16,19):			
-			self.matrix[3][j]=v
-		'''self.matrix=[[s,h,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,h,s],
+			self._matrix[3][j]=v
+		'''self._matrix=[[s,h,s,s,s,s,s,s,s,s,s,s,s,s,s,s,s,h,s],
 					[v,s,v,h,s,h,s,h,s,h,s,h,s,h,s,h,v,s,v],
 					[v,s,s,h,s,h,s,h,s,h,s,h,s,h,s,h,s,s,v],
 					[v,h,v,s,s,s,s,s,s,s,s,s,s,s,s,s,v,h,v]]
@@ -112,37 +112,37 @@ class fourty_beam(obstacle):
 		#v= Style.BRIGHT + colors['Red'] + '/' + RESET
 		#s= Style.BRIGHT + colors['Red'] + ' ' + RESET
 		for j in range(4,6):			
-			self.matrix[0][j]=v
+			self._matrix[0][j]=v
 		for j in range(3,7):			
-			self.matrix[1][j]=v
+			self._matrix[1][j]=v
 		for j in range(2,6):			
-			self.matrix[2][j]=v
+			self._matrix[2][j]=v
 		for j in range(1,6):			
-			self.matrix[3][j]=v
+			self._matrix[3][j]=v
 		for j in range(0,3):			
-			self.matrix[4][j]=v
+			self._matrix[4][j]=v
 		for j in range(4,7):			
-			self.matrix[4][j]=v
+			self._matrix[4][j]=v
 		for j in range(1,2):			
-			self.matrix[5][j]=v
+			self._matrix[5][j]=v
 		for j in range(5,8):			
-			self.matrix[5][j]=v
-		self.matrix[5][11]=v
+			self._matrix[5][j]=v
+		self._matrix[5][11]=v
 		for j in range(6,9):			
-			self.matrix[6][j]=v
+			self._matrix[6][j]=v
 		for j in range(10,13):			
-			self.matrix[6][j]=v
+			self._matrix[6][j]=v
 		for j in range(7,12):			
-			self.matrix[7][j]=v
+			self._matrix[7][j]=v
 		for j in range(6,11):			
-			self.matrix[8][j]=v
+			self._matrix[8][j]=v
 		for j in range(5,9):			
-			self.matrix[9][j]=v
+			self._matrix[9][j]=v
 		for j in range(6,8):			
-			self.matrix[10][j]=v
+			self._matrix[10][j]=v
 		
 
-		'''self.matrix=[[s,s,v,h,s,s,s,s,s],
+		'''self._matrix=[[s,s,v,h,s,s,s,s,s],
 					[s,v,s,v,s,s,s,s,s],
 					[v,s,s,h,s,s,s,s,s],
 					[h,v,h,s,h,s,s,s,s],
@@ -184,7 +184,7 @@ class coin(obstacle):
 		v= Style.BRIGHT + colors['Yellow'] + '$' + RESET
 		for i in range(random.randrange(1,7)):
 			for j in range(random.randrange(4,17)):
-				self.matrix[i][j]=v
+				self._matrix[i][j]=v
 
 class up_magnet(obstacle):
 	def __init__(self,x,y):
@@ -196,7 +196,7 @@ class up_magnet(obstacle):
 		v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
 		h=Style.BRIGHT + colors['Cyan'] + '|' + RESET
 				
-		self.matrix=[[' ',' ',v,v,v,v,' ',' '],
+		self._matrix=[[' ',' ',v,v,v,v,' ',' '],
 							[h,h,' ',' ',' ',' ',h,h],
 							[h,h,' ',' ',' ',' ',h,h]]
 
@@ -218,7 +218,7 @@ class down_magnet(obstacle):
 		v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
 		h=Style.BRIGHT + colors['Cyan'] + '|' + RESET
 				
-		self.matrix=[[h,h,' ',' ',' ',' ',h,h],
+		self._matrix=[[h,h,' ',' ',' ',' ',h,h],
 							[h,h,' ',' ',' ',' ',h,h],
 							[' ',' ',v,v,v,v,' ',' ']]
 
@@ -232,7 +232,7 @@ class power_up(obstacle):
 		v= Style.BRIGHT + colors['Purple'] + 'S' + RESET
 		h=Style.BRIGHT + colors['Purple'] + '#' + RESET
 				
-		self.matrix=[[' ',v,' ',],
+		self._matrix=[[' ',v,' ',],
 					[h,h,h],
 					[h,h,h],
 					[h,h,h]]

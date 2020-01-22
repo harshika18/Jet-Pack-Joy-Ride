@@ -1,4 +1,4 @@
-from config import *
+import config
 from make_background import *
 import os
 import sys
@@ -31,8 +31,11 @@ while True:
 	#print(is_shield)
 	recent=time.time()
 	#print(recent-shield_time)
-	if Hero.is_shield==1 and recent-shield_time>=10:
-		Hero.is_shield=0
+	Is_shield=Hero.get_is_shield()
+	Is_power=Hero.get_is_power()
+	if Is_shield==1 and recent-shield_time>=10:
+		Hero.set_is_shield(0)
+		#Hero.is_shield=0
 		Hero.remove_shield()
 	#Hero.magnet(scene)
 	if(recent - original_time >=0.2) and scene.start<860:
@@ -63,14 +66,21 @@ while True:
 				Hero.speed=1
 			elif (Hero.y>150 and Hero.y<200) or (Hero.y>450 and Hero.y<500):
 				Hero.speed=3
-			elif Hero.is_power==0:
+			elif Is_power==0:
 				Hero.speed=2
-			elif Hero.is_power==1 and recent-Hero.power_time<=10:
-				Hero.speed=3
+			elif Is_power==1 and recent-config.power_time<=10:
+				if recent-config.power_time>10:
+					set_is_power(0)
+			#	print(Is_power)
+				#config.power_time=time.time()
+				#print("enter")
+
+				Hero.speed=4
 			ch=check_clash(Hero,Hero.x,Hero.y+2,scene)
-			if (ch==1 or ch==2) and Hero.is_shield==1:
+			if (ch==1 or ch==2) and Is_shield==1:
 				obstacle_detect(Hero,Hero.x,Hero.y,scene)
-				Hero.is_shield=0
+				#Hero.is_shield=0
+				Hero.set_is_shield(0)
 				Hero.remove_shield()
 			Hero.right_move(scene)
 		elif input=='a':
@@ -78,21 +88,27 @@ while True:
 				Hero.speed=1
 			elif (Hero.y>200 and Hero.y<250) or (Hero.y>500 and Hero.y<550):
 				Hero.speed=3
-			elif Hero.is_power==0:
+			elif Is_power==0:
 				Hero.speed=2
-			elif Hero.is_power==1 and recent-Hero.power_time<=10:
-				Hero.speed=3
+			elif Is_power==1 and recent-config.power_time<=10:
+				#print("enter")
+				if recent-config.power_time>10:
+					set_is_power(0)
+				Hero.speed=4
+			#	print(Is_power)				
 			ch=check_clash(Hero,Hero.x,Hero.y-2,scene)
-			if ch==1 or ch==2 and Hero.is_shield==1:
+			if ch==1 or ch==2 and Is_shield==1:
 				obstacle_detect(Hero,Hero.x,Hero.y,scene)
-				Hero.is_shield=0
+				#Hero.is_shield=0
+				Hero.set_is_shield(0)
 				Hero.remove_shield()
 			Hero.left_move(scene)
 		elif input=='w':
 			ch=check_clash(Hero,Hero.x-2,Hero.y,scene)
-			if ch==1 or ch==2 and Hero.is_shield==1:
+			if ch==1 or ch==2 and Is_shield==1:
 				obstacle_detect(Hero,Hero.x,Hero.y,scene)
-				Hero.is_shield=0
+				#Hero.is_shield=0
+				Hero.set_is_shield(0)
 				Hero.remove_shield()
 			Hero.up_move(scene)
 		elif input==' ':
@@ -105,7 +121,8 @@ while True:
 			Hero.shield()
 			first_time_shield=1
 			shield_time=time.time()
-			Hero.is_shield=1
+			#Hero.is_shield=1
+			Hero.set_is_shield(1)
 		if input == 'q':
 			os.system('clear')
 			sys.exit()
@@ -115,9 +132,10 @@ while True:
 		gravity_time+=0.3
 		Hero.gravity(scene,gravity_time)
 		ch=check_clash(Hero,Hero.x+2,Hero.y,scene)
-		if ch==1 or ch==2 and Hero.is_shield==1:
+		if ch==1 or ch==2 and Is_shield==1:
 			obstacle_detect(Hero,Hero.x,Hero.y,scene)
-			Hero.is_shield=0
+			#Hero.is_shield=0
+			Hero.set_is_shield(0)
 			Hero.remove_shield()
 	if input is None:
 		if(Hero.y>200 and Hero.y<250) or (Hero.y>500 and Hero.y<550):
@@ -180,7 +198,7 @@ while True:
 				ch=check_clash(Hero,Hero.x,Hero.y-2,scene)
 				Hero.left_move(scene)
 		elif input=='w':
-			if Hero.x+2<=Dragon.x:
+			if Hero.x<=Dragon.x:
 				Dragon.up_move(scene)
 			ch=check_clash(Hero,Hero.x-2,Hero.y,scene)
 			Hero.up_move(scene)
@@ -195,10 +213,12 @@ while True:
 		if input == 'q':
 			os.system('clear')
 			sys.exit()
+		gravity_time=0
 		
 	elif Hero.x<32:
+		gravity_time+=0.3
 		#print("Enter2")
-		Hero.gravity(scene)
+		Hero.gravity(scene,gravity_time)
 		ch=check_clash(Hero,Hero.x+2,Hero.y,scene)
 		if Hero.x+4>=Dragon.x+14 and Dragon.x<22:
 			Dragon.gravity(scene)

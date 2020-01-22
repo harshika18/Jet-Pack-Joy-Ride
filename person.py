@@ -4,9 +4,9 @@ from globalfunc import *
 
 class person:
 	def __init__(self):
-		self.matrix=[]
+		self._matrix=[]
 	def return_matr(self):
-		return self.matrix
+		return self._matrix
 	def Set_pos(self,x,y,background):
 		Fit_in(self,x,y,background)
 		self.x=x
@@ -49,21 +49,45 @@ class Hero(person):
 		self.width=9
 		self.x=32
 		self.y=2
-		self.lives=3
-		self.coin_collect=0
-		self.enemy_killed=0
-		self.obs_killed=0
+		self.__lives=3
+		self.__coin_collect=0
+		self.__enemy_killed=0
+		self.__obs_killed=0
 		self.speed=2
-		self.is_shield=0
-		self.is_power=0
+		self.__is_shield=0
+		self.__is_power=0
 		self.power_time=0
 		#9*4 matrix
 		#print("enter")
-		if self.is_shield==0:
-			self.matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
+		if self.__is_shield==0:
+			self._matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
 							[ ' ', '/','/','|',' ',' ', '|','_','_'],
 							['/','/',' ', '|','_','_','|',' ',' '],
 							[' ',' ',' ','/',' ',' ','\\',' ',' ']]
+	def get_is_shield(self):
+		return self.__is_shield
+	def set_is_shield(self,x):
+		self.__is_shield=x
+	def get_is_power(self):
+		return self.__is_power
+	def set_is_power(self,x):
+		self.__is_power=x
+	def get_lives(self):
+		return self.__lives
+	def set_lives(self,x):
+		self.__lives=x
+	def get_obs_killed(self):
+		return self.__obs_killed
+	def set_obs_killed(self,x):
+		self.__obs_killed=x
+	def get_enemy_killed(self):
+		return self.__enemy_killed
+	def set_enemy_killed(self,x):
+		self.__enemy_killed=x
+	def get_coin(self):
+		return self.__coin_collect
+	def set_coin(self,x):
+		self.__coin_collect=x
 
 	def shoot(self,scene):
 		self.fire_len=49
@@ -88,13 +112,13 @@ class Hero(person):
 		r= Style.BRIGHT + colors['Green'] + '/' + RESET
 		t= Style.BRIGHT + colors['Green'] + '\\' + RESET
 		y= Style.BRIGHT + colors['Green'] + '_' + RESET
-		self.matrix=[[' ',' ',' ',' ',q,w,' ',' ',' '],
+		self._matrix=[[' ',' ',' ',' ',q,w,' ',' ',' '],
 					[ ' ', r,r,e,' ',' ', e,y,y],
 					[r,r,' ', e,y,y,e,' ',' '],
 					[' ',' ',' ',r,' ',' ',t,' ',' ']]
 
 	def remove_shield(self):
-		self.matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
+		self._matrix=[[' ',' ',' ',' ','(',')',' ',' ',' '],
 					[ ' ', '/','/','|',' ',' ', '|','_','_'],
 					['/','/',' ', '|','_','_','|',' ',' '],
 					[' ',' ',' ','/',' ',' ','\\',' ',' ']]
@@ -113,7 +137,7 @@ class enemy(person):
 		self.width=2
 		self.x=x
 		self.y=y
-		self.matrix=[['^','^'],
+		self._matrix=[['^','^'],
 					['/','\\']]
 
 		'''
@@ -131,21 +155,21 @@ class dragon(person):
 		self.speed=2
 		self.lives=3
 		self.gun='O'
-		self.matrix=[[] for i in range(0,50)]
-		self.matrix[0]  = ("              ______________                  ")
-		self.matrix[1]  = ("        ,===:'.,            `-._              ")
-		self.matrix[2]  = ("             `:.`---.__         `-._          ")
-		self.matrix[3]  = ("               `:.     `--.         `.        ")        
-		self.matrix[4]  = ("                 \.        `.         `.      ")
-		self.matrix[5]  = ("         (,,(,    \.         `.   ____,-`.,   ")
-		self.matrix[6]  = ("      (,'     `/   \.   ,--.___`.'            ")
-		self.matrix[7]  = ("  ,  ,'  ,--.  `,   \.;'         `            ")
-		self.matrix[8]  = ("   `{D, {    \  :    \;                       ") 
-		self.matrix[9]  = ("     V,,'    /  /    //                       ")
-		self.matrix[10] = ("     j;;    /  ,' ,-//.    ,---.              ") 
-		self.matrix[11] = ("     \;'   /  ,' /  _  \  /  _  \   ,'/       ")
-		self.matrix[12] = ("           \   `'  / \  `'  / \  `.' /        ")
-		self.matrix[13] = ("            `.___,'   `.__,'   `.__,'         ")
+		self._matrix=[[] for i in range(0,50)]
+		self._matrix[0]  = ("              ______________                  ")
+		self._matrix[1]  = ("        ,===:'.,            `-._              ")
+		self._matrix[2]  = ("             `:.`---.__         `-._          ")
+		self._matrix[3]  = ("               `:.     `--.         `.        ")        
+		self._matrix[4]  = ("                 \.        `.         `.      ")
+		self._matrix[5]  = ("         (,,(,    \.         `.   ____,-`.,   ")
+		self._matrix[6]  = ("      (,'     `/   \.   ,--.___`.'            ")
+		self._matrix[7]  = ("  ,  ,'  ,--.  `,   \.;'         `            ")
+		self._matrix[8]  = ("   `{D, {    \  :    \;                       ") 
+		self._matrix[9]  = ("     V,,'    /  /    //                       ")
+		self._matrix[10] = ("     j;;    /  ,' ,-//.    ,---.              ") 
+		self._matrix[11] = ("     \;'   /  ,' /  _  \  /  _  \   ,'/       ")
+		self._matrix[12] = ("           \   `'  / \  `'  / \  `.' /        ")
+		self._matrix[13] = ("            `.___,'   `.__,'   `.__,'         ")
 	
 	def boss_shoot(self,scene,hero_pos):
 		self.gun='O'
@@ -155,6 +179,6 @@ class dragon(person):
 	def remove(self,x,y,background):
 		remove_boss_gun(self,x,y,background)
 
-	def gravity(self,scene):
+	def gravity(self,scene,):
 		self.Set_pos(self.x+2,self.y,scene)
 

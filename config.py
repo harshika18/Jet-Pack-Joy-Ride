@@ -1,4 +1,5 @@
 from colorama import Fore, Back, init, Style
+import threading, time
 
 #init(autoreset=True)
 #MAP CONTRAIT
@@ -23,6 +24,7 @@ SPEED = {1: 0.25,
 SCORE_DIST = 10
 SCORE_KILL = 200
 SCORE_COIN = 100
+power_time=time.time()
  
 # coin_collect=0
 # lives=3
