@@ -119,6 +119,8 @@ while True:
 				Hero.remove_shield()
 			Hero.left_move(scene)
 		elif input=='w':
+			if Hero.x<=Dragon.x:
+				Dragon.up_move(scene)
 			ch=check_clash(Hero,Hero.x-2,Hero.y,scene,0)
 			if ch==1 or ch==2 and Is_shield==1:
 				obstacle_detect(Hero,Hero.x,Hero.y,scene)
@@ -152,6 +154,10 @@ while True:
 			#Hero.is_shield=0
 			Hero.set_is_shield(0)
 			Hero.remove_shield()
+		if Hero.x+4>=Dragon.x+14 and Dragon.x<22:
+			Dragon.gravity(scene)
+	if Hero.x==32 and Dragon.x<22:
+		Dragon.gravity(scene)
 	if input is None:
 		if(Hero.y>200 and Hero.y<250) or (Hero.y>500 and Hero.y<550):
 			Hero.speed=2
