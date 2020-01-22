@@ -6,6 +6,7 @@ import threading, time
 def put_info(back,hero,drag):
 	backmatrix=back.return_matr()
 	hero_lives=hero.get_lives()
+	drag_lives=drag.get_lives()
 	Enemy_killed=hero.get_enemy_killed()
 	Coin_collect=hero.get_coin()
 	Obs_killed=hero.get_obs_killed()
@@ -32,7 +33,7 @@ def put_info(back,hero,drag):
 	Lives="DRAGON LIVES:"
 	for i in range(back.start+120,back.start+len(Lives)+120):
 		backmatrix[1][i]=Lives[i-back.start-120]
-	backmatrix[1][back.start+len(Lives)+120]=drag.lives
+	backmatrix[1][back.start+len(Lives)+120]=drag_lives
 
 def Fit_in(obj,x,y,back):
 	v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
@@ -170,7 +171,7 @@ def check_hero(x,x1,y,obj):
 		#obj.lives-=1
 
 def dragon_check(obj,x):
-	hero_lives=obj.get_live()
+	hero_lives=obj.get_lives()
 	
 	if x>=obj.x and x<=obj.x+14:
 		obj.set_lives(hero_lives-1)		

@@ -5,6 +5,7 @@ from globalfunc import *
 class person:
 	def __init__(self):
 		self._matrix=[]
+		self.__lives=3
 	def return_matr(self):
 		return self._matrix
 	def Set_pos(self,x,y,background):
@@ -12,9 +13,11 @@ class person:
 		self.x=x
 		self.y=y
 	def right_move(self,scene):
+		#print(self.speed)
 		if self.y+8<scene.start+SCREEN_WIDTH:
 			self.Set_pos(self.x,self.y+self.speed,scene)
 	def left_move(self,scene):
+		#print(self.speed)
 		if self.y-self.speed>scene.start:
 			self.Set_pos(self.x,self.y-self.speed,scene)
 	def up_move(self,scene):
@@ -41,6 +44,10 @@ class person:
 		self.Set_pos_gun(x,y,scene)
 	def Set_pos_gun(self,x,y,background):
 		Fit_in_shoot(self,x,y,background)
+	def get_lives(self):
+		return self.__lives
+	def set_lives(self,x):
+		self.__lives=x
 		
 class Hero(person):
 	def __init__(self):
@@ -56,7 +63,7 @@ class Hero(person):
 		self.speed=2
 		self.__is_shield=0
 		self.__is_power=0
-		self.power_time=0
+		#self.power_time=0
 		#9*4 matrix
 		#print("enter")
 		if self.__is_shield==0:
@@ -72,10 +79,7 @@ class Hero(person):
 		return self.__is_power
 	def set_is_power(self,x):
 		self.__is_power=x
-	def get_lives(self):
-		return self.__lives
-	def set_lives(self,x):
-		self.__lives=x
+	
 	def get_obs_killed(self):
 		return self.__obs_killed
 	def set_obs_killed(self,x):
@@ -90,7 +94,7 @@ class Hero(person):
 		self.__coin_collect=x
 
 	def shoot(self,scene):
-		self.fire_len=49
+		#self.fire_len=49
 		self.gun='>'
 		self.Set_pos_gun(self.x+2,self.y+40,scene)
 		#self.Set_pos_gun(self.x,self.y+40,scene)
@@ -153,7 +157,7 @@ class dragon(person):
 		self.x=x
 		self.y=y
 		self.speed=2
-		self.lives=3
+		self.__lives=3
 		self.gun='O'
 		self._matrix=[[] for i in range(0,50)]
 		self._matrix[0]  = ("              ______________                  ")
