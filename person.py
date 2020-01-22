@@ -52,8 +52,8 @@ class person:
 class Hero(person):
 	def __init__(self):
 		person.__init__(self)
-		self.length=4
-		self.width=9
+		self.__length=4
+		self.__width=9
 		self.x=32
 		self.y=2
 		self.__lives=3
@@ -71,6 +71,10 @@ class Hero(person):
 							[ ' ', '/','/','|',' ',' ', '|','_','_'],
 							['/','/',' ', '|','_','_','|',' ',' '],
 							[' ',' ',' ','/',' ',' ','\\',' ',' ']]
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 	def get_is_shield(self):
 		return self.__is_shield
 	def set_is_shield(self,x):
@@ -137,8 +141,8 @@ class Hero(person):
 class enemy(person):
 	def __init__(self,x,y):
 		person.__init__(self)
-		self.length=2
-		self.width=2
+		self.__length=2
+		self.__width=2
 		self.x=x
 		self.y=y
 		self._matrix=[['^','^'],
@@ -148,12 +152,15 @@ class enemy(person):
 		 ^^
 		 /\
 		 '''
-
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 class dragon(person):
 	def __init__(self,x,y):
 		person.__init__(self)
-		self.length=14
-		self.width=46
+		self.__length=14
+		self.__width=46
 		self.x=x
 		self.y=y
 		self.speed=2
@@ -185,4 +192,7 @@ class dragon(person):
 
 	def gravity(self,scene,):
 		self.Set_pos(self.x+2,self.y,scene)
-
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width

@@ -4,8 +4,8 @@ from globalfunc import *
 class pattern:
 	def __init__(self,x,y):
 		self._matrix=[]
-		self.length=26
-		self.width=26
+		self.__length=26
+		self.__width=26
 		self.x=x
 		self.y=y
 		for i in range(0,26):

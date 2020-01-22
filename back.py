@@ -11,8 +11,8 @@ class background:
 		self.score = 0
 		self.dis_cover = 0
 		self.start = 0
-		self.length = SCREEN_LEN
-		self.width = SCREEN_WIDTH
+		self.__length = SCREEN_LEN
+		self.__width = SCREEN_WIDTH
 		self.map_size= MAP_SIZE
 		#print("enter")
 		self.screen=[]
@@ -23,9 +23,13 @@ class background:
 	#def ground(self):
 		for i in range(0,self.map_size):
 			self.screen[2][i] = colors['Blue'] + '-' + RESET
-		for x in range(36, self.length):
+		for x in range(36, self.__length):
 			for y in range(0, self.map_size):
 				self.screen[x][y] = colors['Brown'] + 'I' + RESET 
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 	def return_matr(self):
 		return self.screen
@@ -41,18 +45,15 @@ class background:
 			design(3,poss,self)
 			poss+=60		
 		sceneprint = ""
-		original=self.start + self.width
+		original=self.start + self.__width
 		#if(self.screen[0][0]==' '):
 		#	self.screen[0][0]='\x1b[0;45m'
-		if self.start >= self.map_size - self.width:
-			self.start = self.map_size - self.width
-		for i in range(0, self.length):
-			for j in range(self.start, self.start + self.width):
+		if self.start >= self.map_size - self.__width:
+			self.start = self.map_size - self.__width
+		for i in range(0, self.__length):
+			for j in range(self.start, self.start + self.__width):
 				sceneprint += str(self.screen[i][j])
 			sceneprint += '\n'
 				#sceneprint += colors['Cyan'] + "Press Q to exit\n" 
 		return sceneprint
 
-def timer_plus(scene):
-	scene.start+=1
-	threading.Timer(1,timer_plus).start()

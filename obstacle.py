@@ -6,6 +6,8 @@ from globalfunc import *
 class obstacle:
 	def __init__(self):
 		self._matrix=[]
+		self.__length=0
+		self.__width=0
 		for i in range(21):
 			self._matrix.append([])
 			for j in range(21):
@@ -15,12 +17,12 @@ class obstacle:
 		return self._matrix
 	def Set_pos(self,x,y,background):
 		Fit_in(self,x,y,background)
-
+	
 class vertical_beam(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=10
-		self.width=6
+		self.__length=10
+		self.__width=6
 		self.x=x
 		self.y=y
 		v= Style.BRIGHT + colors['Red'] + '*' + RESET
@@ -59,12 +61,16 @@ class vertical_beam(obstacle):
 		              _||_   
                      |____| 
 		'''
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 class horizontal_beam(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=4
-		self.width=19
+		self.__length=4
+		self.__width=19
 		self.x=x
 		self.y=y
 		v= Style.BRIGHT + colors['Red'] + '*' + RESET
@@ -98,13 +104,17 @@ class horizontal_beam(obstacle):
 	                                  \  /
 	                                  / /
 	                                  \/
-	                                  '''
+		                                  '''
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 class fourty_beam(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=11
-		self.width=13
+		self.__length=11
+		self.__width=13
 		self.x=x
 		self.y=y
 		#9*9 matrix
@@ -173,24 +183,32 @@ class fourty_beam(obstacle):
           ****************
           ***          *** 
           '''
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 class coin(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=8
-		self.width=18
+		self.__length=8
+		self.__width=18
 		self.x=x
 		self.y=y
 		v= Style.BRIGHT + colors['Yellow'] + '$' + RESET
 		for i in range(random.randrange(1,7)):
 			for j in range(random.randrange(4,17)):
 				self._matrix[i][j]=v
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 class up_magnet(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=3
-		self.width=8
+		self.__length=3
+		self.__width=8
 		self.x=x
 		self.y=y
 		v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
@@ -200,19 +218,23 @@ class up_magnet(obstacle):
 							[h,h,' ',' ',' ',' ',h,h],
 							[h,h,' ',' ',' ',' ',h,h]]
 
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 
-'''  ____
+	'''  ____
 	|    |       ====
 	|    |     ||    ||
 	           ||    ||
-'''
-
+	'''
+	
 class down_magnet(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=3
-		self.width=8
+		self.__length=3
+		self.__width=8
 		self.x=x
 		self.y=y
 		v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
@@ -221,12 +243,16 @@ class down_magnet(obstacle):
 		self._matrix=[[h,h,' ',' ',' ',' ',h,h],
 							[h,h,' ',' ',' ',' ',h,h],
 							[' ',' ',v,v,v,v,' ',' ']]
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width
 
 class power_up(obstacle):
 	def __init__(self,x,y):
 		obstacle.__init__(self)
-		self.length=4
-		self.width=3
+		self.__length=4
+		self.__width=3
 		self.x=x
 		self.y=y
 		v= Style.BRIGHT + colors['Purple'] + 'S' + RESET
@@ -238,10 +264,14 @@ class power_up(obstacle):
 					[h,h,h]]
 
 
-'''
+	'''
          S
         ###
         ###
         ###
 
       '''
+	def get_length(self):
+		return self.__length
+	def get_width(self):
+		return self.__width

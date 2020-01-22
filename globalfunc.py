@@ -36,16 +36,18 @@ def put_info(back,hero,drag):
 	backmatrix[1][back.start+len(Lives)+120]=drag_lives
 
 def Fit_in(obj,x,y,back):
+	obj_length=obj.get_length()
+	obj_width=obj.get_width()
 	v= Style.BRIGHT + colors['Cyan'] + '=' + RESET
 	h=Style.BRIGHT + colors['Cyan'] + '|' + RESET
 	Myobj=obj.return_matr()
 	backmatrix=back.return_matr()
-	for i in range(obj.x,obj.x+obj.length):
-		for j in range(obj.y,obj.y+obj.width):
+	for i in range(obj.x,obj.x+obj_length):
+		for j in range(obj.y,obj.y+obj_width):
 			if backmatrix[i][j] !=Style.BRIGHT + colors['Red'] + '*' + RESET and backmatrix[i][j]!=v and backmatrix[i][j]!=h:
 				backmatrix[i][j]=' '
-	for i in range(x,x+obj.length):
-		for j in range(y,y+obj.width):
+	for i in range(x,x+obj_length):
+		for j in range(y,y+obj_width):
 			#print(i,j,i-x,j-y)
 			if backmatrix[i][j] != Style.BRIGHT + colors['Red'] + '*' + RESET and backmatrix[i][j]!=v and backmatrix[i][j]!=h:
 				backmatrix[i][j]=Myobj[i-x][j-y]
@@ -85,6 +87,8 @@ def remove_boss_gun(obj,x,y,back):
 
 def check_clash(obj,x,y,back):
 	#check from right
+	obj_length=obj.get_length()
+	obj_width=obj.get_width()
 	Myobj=obj.return_matr()
 	hero_lives=obj.get_lives()
 	backmatrix=back.return_matr()
@@ -93,8 +97,8 @@ def check_clash(obj,x,y,back):
 	Coin=0
 	#print(backmatrix)
 	#check for beam
-	for i in range(x,x+obj.length):
-		for j in range(y,y+obj.width):
+	for i in range(x,x+obj_length):
+		for j in range(y,y+obj_width):
 			if backmatrix[i][j]==Style.BRIGHT + colors['Red'] + '*' + RESET:
 				#print(backmatrix[i][j])
 				if Is_shield==0:
@@ -104,15 +108,15 @@ def check_clash(obj,x,y,back):
 					obj.Set_pos(32,y,back)
 				return 1
 	#ceck for coin
-	for i in range (x,x+obj.length):
-		for j in range(y,y+obj.width):
+	for i in range (x,x+obj_length):
+		for j in range(y,y+obj_width):
 			if backmatrix[i][j]==Style.BRIGHT + colors['Yellow'] + '$' + RESET:
 				#obj.set_coin(Coin_collect+1)
 				Coin+=1
 	obj.set_coin(Coin_collect+Coin)
 	#check enemy
-	for i in range (x,x+obj.length):
-		for j in range(y,y+obj.width):
+	for i in range (x,x+obj_length):
+		for j in range(y,y+obj_width):
 			if backmatrix[i][j]=='^':
 				if Is_shield==0:
 					obj.set_lives(hero_lives-1)
@@ -123,8 +127,8 @@ def check_clash(obj,x,y,back):
 				return 2
 
 	#check power
-	for i in range (x,x+obj.length):
-		for j in range(y,y+obj.width):
+	for i in range (x,x+obj_length):
+		for j in range(y,y+obj_width):
 			v= Style.BRIGHT + colors['Purple'] + 'S' + RESET
 			h=Style.BRIGHT + colors['Purple'] + '#' + RESET
 			if backmatrix[i][j]==h or backmatrix[i][j]==v:
@@ -139,6 +143,8 @@ def check_clash(obj,x,y,back):
 	
 def obstacle_detect(obj,x,y,back):
 	backmatrix=back.return_matr()
+	obj_length=obj.get_length()
+	obj_width=obj.get_width()
 	Enemy_killed=obj.get_enemy_killed()
 	Is_shield=obj.get_is_shield()
 	Obs_killed=obj.get_obs_killed()
