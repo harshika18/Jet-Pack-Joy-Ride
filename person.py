@@ -164,7 +164,7 @@ class dragon(person):
 		self.x=x
 		self.y=y
 		self.speed=2
-		self.__lives=3
+		self.__lives=5
 		self.gun='O'
 		self._matrix=[[] for i in range(0,50)]
 		self._matrix[0]  = ("              ______________                  ")
@@ -190,7 +190,7 @@ class dragon(person):
 	def remove(self,x,y,background):
 		remove_boss_gun(self,x,y,background)
 
-	def gravity(self,scene,):
+	def gravity(self,scene):
 		self.Set_pos(self.x+2,self.y,scene)
 	def get_length(self):
 		return self.__length

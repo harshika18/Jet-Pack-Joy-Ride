@@ -3,6 +3,25 @@ import config
 from back import *
 import threading, time
 
+def game_over(hero):
+	Enemy_killed=hero.get_enemy_killed()
+	Coin_collect=hero.get_coin()
+	Obs_killed=hero.get_obs_killed()
+	total=Coin_collect*20+Enemy_killed*10+Obs_killed*10
+	screen=""
+	matrix=[[] for i in range(0,5)]
+	matrix[0] = (" ,---.  ,--,--.,--,--,--.,---.      ,---.,--.  ,--.,---. ,--.--. ")
+	matrix[1] = ("| .-. |' ,-.  ||        | .-. :    | .-. |\  `'  /| .-. :|  .--' ")
+	matrix[2] = ("' '-' '\ '-'  ||  |  |  \   --.    ' '-' ' \    / \   --.|  |    ")
+	matrix[3] = (".`-  /  `--`--'`--`--`--'`----'     `---'   `--'   `----'`--'    ")
+	matrix[4] = ("`---'                                                            ")
+	for i in range(len(matrix)):
+		for j in range(len(matrix[0])):
+			screen+=matrix[i][j]
+		screen+='\n'
+	screen+="TOTAL SCORE: " + str(total)
+	return screen
+
 def put_info(back,hero,drag):
 	backmatrix=back.return_matr()
 	hero_lives=hero.get_lives()
@@ -85,7 +104,7 @@ def remove_boss_gun(obj,x,y,back):
 	back.update_matrix(backmatrix)
 
 
-def check_clash(obj,x,y,back):
+def check_clash(obj,x,y,back,grav):
 	#check from right
 	obj_length=obj.get_length()
 	obj_width=obj.get_width()
@@ -115,16 +134,18 @@ def check_clash(obj,x,y,back):
 				Coin+=1
 	obj.set_coin(Coin_collect+Coin)
 	#check enemy
-	for i in range (x,x+obj_length):
-		for j in range(y,y+obj_width):
-			if backmatrix[i][j]=='^':
-				if Is_shield==0:
-					obj.set_lives(hero_lives-1)
-					#obj.lives-=1
-				for c in range(34,36):
-					for d in range(j,j+5):
-						backmatrix[c][d]=' '
-				return 2
+	if grav==0:
+		for i in range (x,x+obj_length):
+			for j in range(y,y+obj_width):
+				if backmatrix[i][j]=='^':
+					#print(i)
+					if Is_shield==0:
+						obj.set_lives(hero_lives-1)
+						#obj.lives-=1
+					for c in range(34,36):
+						for d in range(j,j+5):
+							backmatrix[c][d]=' '
+					return 2
 
 	#check power
 	for i in range (x,x+obj_length):
@@ -132,6 +153,7 @@ def check_clash(obj,x,y,back):
 			v= Style.BRIGHT + colors['Purple'] + 'S' + RESET
 			h=Style.BRIGHT + colors['Purple'] + '#' + RESET
 			if backmatrix[i][j]==h or backmatrix[i][j]==v:
+				#print("detected")
 				obj.speed+=1
 				obj.set_is_power(1)
 				#obj.is_power=1
