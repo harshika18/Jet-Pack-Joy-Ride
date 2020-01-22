@@ -13,7 +13,7 @@ def make_back(scene):
 		Enemy.Set_pos(34,j,scene)
 		j+=70
 	j=23
-	while j<MAP_SIZE-50:
+	while j<MAP_SIZE-100:
 		Enemy=enemy(34,j)
 		Enemy.Set_pos(34,j,scene)
 		j+=70

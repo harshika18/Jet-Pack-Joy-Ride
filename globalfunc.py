@@ -2,8 +2,9 @@ from colorama import Fore, Back, init, Style
 import config
 from back import *
 import threading, time
-
+#from run import original_time
 def game_over(hero):
+	
 	Enemy_killed=hero.get_enemy_killed()
 	Coin_collect=hero.get_coin()
 	Obs_killed=hero.get_obs_killed()
@@ -21,8 +22,32 @@ def game_over(hero):
 		screen+='\n'
 	screen+="TOTAL SCORE: " + str(total)
 	return screen
-
-def put_info(back,hero,drag):
+def you_win(hero):
+	Enemy_killed=hero.get_enemy_killed()
+	Coin_collect=hero.get_coin()
+	Obs_killed=hero.get_obs_killed()
+	total=Coin_collect*20+Enemy_killed*10+Obs_killed*10
+	screen=""
+	matrix=[[] for i in range(0,8)]
+	matrix[0]= ("____   ____._______  .____                   ___ .___ .______  ")     
+	matrix[1]= ("\   \_/   /: .___  \ |    |___      .___    |   |: __|:      \ ")     
+	matrix[2]= (" \___ ___/ | :   |  ||    |   |     :   | /\|   || : ||       |")     
+	matrix[3]= ("   |   |   |     :  ||    :   |     |   |/  :   ||   ||   |   |")     
+	matrix[4]= ("   |___|    \_. ___/ |        |     |   /       ||   ||___|   |")     
+	matrix[5]= ("              :/     |. _____/      |______/|___||___|    |___|")     
+	matrix[6]= ("              :       :/                    :                  ")     
+	matrix[7]= ("                      :                     :                  ")     
+                                                                     
+	for i in range(len(matrix)):
+		for j in range(len(matrix[0])):
+			screen+=matrix[i][j]
+		screen+='\n'
+	screen+="TOTAL SCORE: " + str(total)
+	return screen                                                    
+def put_info(back,hero,drag,time_time):
+	ori=time_time
+	recent_time=time.time()
+	time_left=round(recent_time-ori)
 	backmatrix=back.return_matr()
 	hero_lives=hero.get_lives()
 	drag_lives=drag.get_lives()
@@ -49,6 +74,7 @@ def put_info(back,hero,drag):
 	Lives="TIME:"
 	for i in range(back.start+90,back.start+90+len(Lives)):
 		backmatrix[1][i]=Lives[i-back.start-90]
+	backmatrix[1][back.start+len(Lives)+90]=300-time_left
 	Lives="DRAGON LIVES:"
 	for i in range(back.start+120,back.start+len(Lives)+120):
 		backmatrix[1][i]=Lives[i-back.start-120]

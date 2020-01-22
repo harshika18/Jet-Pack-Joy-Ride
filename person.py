@@ -49,7 +49,7 @@ class person:
 	def set_lives(self,x):
 		self.__lives=x
 		
-class Hero(person):
+class hero_mando(person):
 	def __init__(self):
 		person.__init__(self)
 		self.__length=4

@@ -8,7 +8,7 @@ from globalfunc import *
 import threading, time
 
 scene = background()
-Hero = Hero()
+Hero = hero_mando()
 Hero.Set_pos(32,2,scene)
 make_back(scene)
 Dragon=dragon(22,952)
@@ -17,8 +17,9 @@ getinp = Get()
 back=scene.displayScene()
 temp_scene=scene.displayScene()
 print(back)
+ori_time=time.time()
 original_time=time.time()
-shield_time=time.time()
+shield_time=0
 #power_time=time.time()
 first_time_shield=0
 gravity_time=0
@@ -28,10 +29,12 @@ shoot_pos_y=0
 
 #0.2
 while True:
+	
 	hero_lives=Hero.get_lives()
 	if hero_lives==0:
 		os.system('clear')
 		print(game_over(Hero))
+		#print(you_win(Hero))
 		sys.exit()
 	recent=time.time()
 	#print(recent-config.power_time)
@@ -44,7 +47,7 @@ while True:
 
 	if Is_power==1 and recent-config.power_time>=10:
 		Hero.set_is_power(0)
-	if Is_shield==1 and recent-config.power_time>=10:
+	if Is_shield==1 and recent-shield_time>=10:
 		Hero.set_is_shield(0)
 		#Hero.is_shield=0
 		Hero.remove_shield()
@@ -55,12 +58,13 @@ while True:
 		#ch=check_clash(Hero,Hero.x,Hero.y,scene,0)
 		original_time=time.time()
 	elif Is_power==1 and (recent - original_time >=0.2) and scene.start<860:
-		scene.start+=3
+		scene.start+=3		
 		original_time=time.time()
 	if scene.start>=860:
 		break
 	if Hero.y<=scene.start:
 		Hero.y=scene.start
+		ch=check_clash(Hero,Hero.x,Hero.y,scene,0)
 		Hero.Set_pos(Hero.x,Hero.y,scene)
 		#Hero.right_move(scene)
 	if is_shoot==0:
@@ -68,15 +72,16 @@ while True:
 		Hero.remove(shoot_pos_x+2,shoot_pos_y,scene)
 	else:
 		is_shoot=0
+	
 	input=input_to(getinp)
 	os.system('clear')
 	back=scene.displayScene()
 	temp_scene=scene.displayScene()
-	put_info(scene,Hero,Dragon)
+	put_info(scene,Hero,Dragon,ori_time)
 	print(back)
 	if input is not None:
 		#print(input)
-		if input=='d':
+		if input=='d' and Hero.y<=940:
 			if(Hero.y>200 and Hero.y<250) or (Hero.y>500 and Hero.y<550):
 				Hero.speed=1
 			elif (Hero.y>150 and Hero.y<200) or (Hero.y>450 and Hero.y<500):
@@ -135,11 +140,16 @@ while True:
 			obstacle_detect(Hero,Hero.x+2,Hero.y,scene)
 			Hero.shoot(scene)
 		elif input=='s' and (recent-shield_time>=50 or first_time_shield==0):
+			#print(recent-shield_time)
+			Hero.set_is_shield(1)
+			#print(Hero.get_is_shield())
 			Hero.shield()
+			Hero.Set_pos(Hero.x,Hero.y,scene)
+			#print(Hero.return_matr())
+			#Hero = hero_mando()
 			first_time_shield=1
 			shield_time=time.time()
 			#Hero.is_shield=1
-			Hero.set_is_shield(1)
 		if input == 'q':
 			os.system('clear')
 			sys.exit()
@@ -174,6 +184,10 @@ shoot_pos_y=0
 while True:
 	hero_lives=Hero.get_lives()
 	dragon_lives=Dragon.get_lives()
+	if dragon_lives==0:
+		os.system('clear')
+		print(you_win(Hero))
+		sys.exit()
 	if hero_lives==0 or dragon_lives==0:
 		os.system('clear')
 		print(game_over(Hero))
@@ -213,7 +227,7 @@ while True:
 	#make_back(scene)
 	back=scene.displayScene()
 	temp_scene=scene.displayScene()
-	put_info(scene,Hero,Dragon)
+	put_info(scene,Hero,Dragon,ori_time)
 	print(back)
 	if input is not None:
 		if input=='d':
